@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\components\gift\Gift;
+use app\components\gift\MoneyGift;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -63,7 +65,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+    	$test = new MoneyGift();
+    	$test->generateGift();
+        //return $this->render('index');
     }
 
     /**
