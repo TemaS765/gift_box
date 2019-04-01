@@ -19,15 +19,24 @@ class LoginForm extends Model
 
     private $_user = false;
 
-
-    /**
+    public function attributeLabels()
+    {
+	    return [
+	    	'username' => 'Имя',
+		    'password' => 'Пароль',
+		    'rememberMe' => 'Запомнить меня'
+	    ];
+    }
+	
+	/**
      * @return array the validation rules.
      */
     public function rules()
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            ['username', 'required', 'message' => '{attribute} должно быть заполнено'],
+            ['password', 'required', 'message' => '{attribute} должен быть заполнено'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
