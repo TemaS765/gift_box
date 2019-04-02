@@ -3,15 +3,20 @@
 namespace app\controllers;
 
 use app\components\gift\Gift;
+use app\components\gift\GiftKeeper;
 use app\components\gift\MoneyGift;
+use app\components\gift\ThingGift;
+use app\components\gift\VirtualMoneyGift;
+use app\models\Thing;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\User;
+use app\models\Money;
 use app\models\SignupForm;
 
 class SiteController extends Controller
@@ -65,8 +70,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-    	$test = new MoneyGift();
-    	$test->generateGift();
+    	$gifts[0] = new MoneyGift();
+    	$gifts[1] = new VirtualMoneyGift();
+    	$gifts[2] = new ThingGift();
+    	
+    	$test = new GiftKeeper($gifts);
+    	$gift = $test->getRandomGift();
+    	
+    	
+    	VarDumper::dump($test->setGiftInStack($gift), 10,true);exit();
         //return $this->render('index');
     }
 

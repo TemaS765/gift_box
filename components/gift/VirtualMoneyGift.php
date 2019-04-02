@@ -5,19 +5,34 @@
 
 namespace app\components\gift;
 
-class VirtualMoneyGift implements GiftInterface
+class VirtualMoneyGift extends Gift
 {
 	/**
-	 * @var int Тип подарка
+	 * @var integer Минимальное значения для рандомного выбора количества
 	 */
-	const TYPE_GIFT = 2;
+	const MIN = 300;
 	
 	/**
-	 * Получить еденицу подарка
+	 * @var integer Максимальное значения для рандомного выбора количества
+	 */
+	const MAX = 10000;
+	
+	/**
+	 * VirtualMoneyGift constructor.
+	 */
+	public function __construct()
+	{
+		$this->type = Gift::TYPE_LAYOUT_POINTS;
+		$this->name = Gift::$giftNames[Gift::TYPE_LAYOUT_POINTS];
+		$this->units = 'б.';
+	}
+	
+	/**
+	 * Генерация подарка
 	 */
 	public function generateGift()
 	{
-	
+		$this->setCount(random_int(self::MIN,self::MAX));
 	}
 	
 	/**

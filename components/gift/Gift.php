@@ -7,29 +7,58 @@ namespace app\components\gift;
 
 class Gift
 {
-	public $type;
-	
-	public $name;
-	
-	public $count;
-	
-	public $units;
+	/**
+	 * Тип Деньги
+	 */
+	const TYPE_MONEY = 1;
 	
 	/**
-	 * @return mixed
+	 * Тип баллы лояльности
 	 */
-	public function getType()
-	{
-		return $this->type;
-	}
+	const TYPE_LAYOUT_POINTS = 2;
 	
 	/**
-	 * @return mixed
+	 * Тип вещь
 	 */
-	public function getName()
-	{
-		return $this->name;
-	}
+	const TYPE_THING = 3;
+	
+	/**
+	 * @var array Типы подарков
+	 */
+	public static $giftTypes = [
+		self::TYPE_MONEY => 'money',
+		self::TYPE_LAYOUT_POINTS => 'loyalty_points',
+		self::TYPE_THING => 'thing'
+	];
+	
+	/**
+	 * @var array Наименования подарков
+	 */
+	public static $giftNames = [
+		self::TYPE_MONEY => 'Деньги',
+		self::TYPE_LAYOUT_POINTS => 'Баллы лояльности',
+		self::TYPE_THING => 'Предмет'
+	];
+	
+	/**
+	 * @var string Тип
+	 */
+	protected $type;
+	
+	/**
+	 * @var string Наименование
+	 */
+	protected $name;
+	
+	/**
+	 * @var integer Единицы измерения
+	 */
+	protected $units;
+	
+	/**
+	 * @var integer Количество
+	 */
+	protected $count;
 	
 	/**
 	 * @return mixed
@@ -37,29 +66,6 @@ class Gift
 	public function getCount()
 	{
 		return $this->count;
-	}
-	
-	/**
-	 * @return mixed
-	 */
-	public function getUnits() {
-		return $this->units;
-	}
-	
-	/**
-	 * @param mixed $type
-	 */
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
-	
-	/**
-	 * @param mixed $name
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
 	}
 	
 	/**
@@ -71,9 +77,34 @@ class Gift
 	}
 	
 	/**
-	 * @param mixed $units
+	 * @return string
 	 */
-	public function setUnits($units) {
-		$this->units = $units;
+	public function getName()
+	{
+		return $this->name;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getType()
+	{
+		return $this->type;
+	}
+	
+	/**
+	 * Генерация подарка
+	 */
+	public function generateGift()
+	{
+	
+	}
+	
+	/**
+	 * Реализация подарка
+	 */
+	public function realizeGift()
+	{
+	
 	}
 }

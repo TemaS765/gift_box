@@ -5,19 +5,34 @@
 
 namespace app\components\gift;
 
-class ThingGift implements GiftInterface
+use app\models\Thing;
+
+class ThingGift extends Gift
 {
 	/**
-	 * @var int Тип подарка
+	 * MoneyGift constructor.
 	 */
-	const TYPE_GIFT = 3;
+	public function __construct()
+	{
+		$this->type = Gift::TYPE_THING;
+		$this->units = 'шт.';
+	}
 	
 	/**
-	 * Получить еденицу подарка
+	 * Генерация подарка
 	 */
 	public function generateGift()
 	{
-	
+		$things = Thing::find()->all();
+		$col = count($things);
+		
+		if ($col > 1) {
+			$max = $col - 1;
+			$rand = random_int(0, $max);
+			$thing = $things[$rand];
+			$this->name = $thing['name'];
+			$this->count = 1;
+		}
 	}
 	
 	/**

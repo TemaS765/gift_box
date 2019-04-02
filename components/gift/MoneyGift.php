@@ -6,62 +6,38 @@
 namespace app\components\gift;
 
 use Faker\Provider\Payment;
+use app\models\Money;
+use yii\helpers\VarDumper;
 
-class MoneyGift implements GiftInterface
+class MoneyGift extends Gift
 {
 	/**
-	 * @var int Тип подарка
+	 * @var integer Минимальное значения для рандомного выбора количества
 	 */
-	const TYPE_GIFT = 1;
+	const MIN = 10;
 	
 	/**
-	 * Минимальное значение
-	 */
-	const MIN = 1;
-	
-	/**
-	 * Максимальное значение
+	 * @var integer Максимальное значения для рандомного выбора количества
 	 */
 	const MAX = 100;
-	
-	/**
-	 * Еденицы ищмерения
-	 */
-	const UNITS = 'руб.';
-	
-	/**
-	 * Название елемента подарка
-	 */
-	const NAME = 'Деньги';
-	
-	/**
-	 * @var Gift Модель подарка
-	 */
-	public $model;
 	
 	/**
 	 * MoneyGift constructor.
 	 */
 	public function __construct()
 	{
-		//инициализируем модель
-		$model = new Gift();
-		$model->setName(self::NAME);
-		$model->setType(self::TYPE_GIFT);
-		$model->setUnits(self::UNITS);
+		$this->type = Gift::TYPE_MONEY;
+		$this->name = Gift::$giftNames[Gift::TYPE_MONEY];
+		$this->units = 'руб.';
 	}
 	
 	/**
-	 * Получить еденицу подарка
-	 *
-	 * @return Gift
+	 * Генерация подарка
 	 */
 	public function generateGift()
 	{
-		//$money = new Money();
-		//$balance = $money->getBalance();
-		
-		$balance = 85; //баланс для теста
+		$money = new Money();
+		$balance = $money->getBalance();
 		
 		if ($balance && $balance >= self::MIN) {
 			do {
@@ -69,9 +45,7 @@ class MoneyGift implements GiftInterface
 			} while ($randomValue > $balance);
 		}
 		
-		$this->model->setCount($randomValue);
-		
-		return $this->model;
+		$this->setCount($randomValue);
 	}
 	
 	/**
